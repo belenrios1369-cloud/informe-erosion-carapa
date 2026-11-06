@@ -162,7 +162,7 @@ function mostrar() {
          ' · <b>Capa del mapa:</b> ' + esc(D.capa) + ' · <b>Fecha del informe:</b> ' + esc(D.fecha) + '</p></div>');
   h.push('<div class="tarjeta"><h2>Mapas</h2><div class="mapas">' +
     '<figure><img src="' + esc(D.mapas.detalle) + '" alt="Mapa de detalle"><figcaption>Figura 1. Detalle del ' +
-    (D.tipo === 'punto' ? 'lugar consultado (círculo celeste)' : (D.tipo === 'micro' ? 'microcuenca' : 'área dibujada') + ' (contorno celeste)') +
+    (D.tipo === 'punto' ? 'lugar consultado (círculo celeste)' : (D.tipo === 'micro' ? 'microcuenca' : 'área dibujada') + ' (en azul)') +
     '. Fondo: relieve SRTM.</figcaption></figure>' +
     '<figure><img src="' + esc(D.mapas.ubicacion) + '" alt="Mapa de ubicación"><figcaption>Figura 2. Ubicación en la subcuenca del Río Carapá.</figcaption></figure>' +
     '</div>' + leyendaHtml() + '</div>');
@@ -269,7 +269,7 @@ function generarPdf() {
     doc.text(limpio(num(D.leyenda.max, D.leyenda.max < 1 ? 4 : 0) + ' ' + D.leyenda.unidad), M + ancho, y + 4.5, {align: 'right'}); y += 6;
   }
   y += 4;
-  texto('Contorno negro: subcuenca del Río Carapá. Celeste: ' + (D.tipo === 'punto' ? 'lugar consultado.' : 'área analizada.') +
+  texto('Contorno negro: subcuenca del Río Carapá. ' + (D.tipo === 'punto' ? 'Celeste: lugar consultado.' : 'Azul: área analizada.') +
         ' Proyección Web Mercator; fondo de relieve SRTM.', 8.5, 'normal', [102, 112, 125]);
   // Coordenadas
   seccion('Ubicación y coordenadas'); filas(coordenadasTexto());
