@@ -287,8 +287,8 @@ function generarPdf() {
   espacio(40); texto('Erosión real por año (t/ha/año)', 9.5, 'bold');
   var mx = Math.max.apply(null, D.serie.map(function (v) { return v || 0; })) || 1, base = y + 26;
   D.serie.forEach(function (v, i) {
-    var h = 24 * (v || 0) / mx, x0 = M + 8 + i * 30;
-    doc.setFillColor(19, 121, 91); doc.rect(x0, base - h, 16, h, 'F');
+    var paso = Math.min(30, 150 / D.serie.length), h = 24 * (v || 0) / mx, x0 = M + 8 + i * paso;
+    doc.setFillColor(19, 121, 91); doc.rect(x0, base - h, Math.min(16, paso - 4), h, 'F');
     doc.setFontSize(8.5); doc.text(limpio(num(v, 1)), x0 + 8, base - h - 1.5, {align: 'center'}); doc.text(ANIOS[i], x0 + 8, base + 4, {align: 'center'});
   });
   y = base + 9;
@@ -307,7 +307,7 @@ function generarPdf() {
 
 // ---- inicio --------------------------------------------------------------------------------------
 document.getElementById('btnVisor').onclick = function () { location.href = D && D.enlace ? D.enlace : VISOR; };
-D = leerDatos();
+D = leerDatos(); if (D && D.anios) ANIOS = D.anios;
 var boton = document.getElementById('btnPdf');
 if (!D) {
   document.getElementById('contenido').innerHTML = '<div class="tarjeta"><p class="error">No se recibieron datos. Abra el informe desde el botón «Generar informe PDF» del visor.</p></div>';
